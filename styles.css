@@ -75,6 +75,19 @@ h1 {
   display: flex;
   margin-bottom: 20px;
   margin-right: auto;
+  justify-content: space-between;
+  width: 95%;
+}
+
+.add-book {
+  border-radius: 50%;
+  margin-left: 60%;
+  font-size: 2rem;
+}
+
+.fa-plus {
+  margin: 0 auto;
+  color: #fff;
 }
 
 .container {
@@ -82,6 +95,7 @@ h1 {
   width: 100%;
   margin: 0 auto;
   padding: 0 0px 0 60px;
+  min-width: 400px;
 }
 
 .book-list {
@@ -118,4 +132,71 @@ h1 {
 .book-title {
   font-size: 1.5rem;
   margin-bottom: 5px;
+}
+
+.modal {
+  font-family: "calibri", sans-serif;
+}
+
+.modal-bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-wrapper {
+  height: 500px;
+  width: 500px;
+  background: #fff;
+  color: #000;
+  z-index: 10;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-container {
+  display: hidden;
+}
+
+.modal-content {
+  margin-top: 50px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content > h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.submit-btn {
+  border: none;
+  margin: 30px auto;
+  padding: 5px 15px;
+  background-color: rgb(39, 39, 39);
+  color: #fff;
+  border-radius: 5px;
+}
+
+.close-modal-btn {
+  /* top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px; */
+  right: 180px;
+  top: 110px;
+  z-index: 10;
+  padding: 0;
+  position: absolute;
+}
+
+.fa-times {
+  color: #000;
+  font-size: 1.8rem;
 }
