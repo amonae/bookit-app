@@ -188,15 +188,11 @@ h1 {
 }
 
 .close-modal-btn {
-  /* top: 20px;
-  right: 20px;
-  width: 32px;
-  height: 32px; */
-  right: 180px;
-  top: 110px;
+  bottom: 270px;
+  left: 400px;
   z-index: 10;
   padding: 0;
-  position: absolute;
+  position: relative;
 }
 
 .fa-times {
