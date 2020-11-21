@@ -122,8 +122,10 @@ h1 {
   overflow: hidden;
 }
 
-.book-info {
+.book-container {
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .book-cover {

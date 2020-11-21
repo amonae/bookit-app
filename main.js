@@ -2,6 +2,7 @@ const addBookBtn = document.querySelector(".add-book-btn");
 const modalContainer = document.querySelector(".modal-container");
 const bookList = document.querySelector(".book-list");
 const closeModalBtn = document.querySelector(".close-modal-btn");
+let booksArr = [];
 
 addBookBtn.addEventListener("click", function (e) {
   bookModal(e);
@@ -30,6 +31,9 @@ function bookModal(e) {
 </div>
   `;
 
+  // display the modal by appending it to the document body
+  document.body.insertBefore(modal, document.body.childNodes[0]);
+
   modal.addEventListener("click", (e) => addBookToDom(e));
 
   // add book to the DOM/book list div
@@ -38,22 +42,40 @@ function bookModal(e) {
     let author = document.querySelector("#author").value;
 
     if (e.target.classList.contains("submit-btn")) {
-      let book = document.createElement("div");
+      function Book(title, author, id) {
+        this.title = title;
+        this.author = author;
+        this.id = id;
+      }
+      // take the inputs and use them to create a new book (book obj)
+      let book = new Book(
+        `${title}`,
+        `${author}`,
+        `${Math.floor(Math.random() * 10000)}`
+      );
+      // then, push that book obj into an array
+      booksArr.push(book);
+      // loop through the array and display the new book to the dom
+      let lastBook = booksArr[booksArr.length - 1];
+
+      book = document.createElement("div");
+      console.log(booksArr);
       book.classList.add("book-card");
+      book.id = lastBook.id;
       book.innerHTML = `
-          <div class="book-cover"></div>
-          <div class="book-info">
-            <div class="book-title">${title}</div>
-            <div class="book-author">${author}</div>
-          </div>
+      <div class="book-cover"></div>
+              <div class="book-container">
+                <div class="book-info">
+                  <div class="book-title">${lastBook.title}</div>
+                  <div class="book-author">${lastBook.author}</div>
+                </div>
+                <div class="remove-btn"><i class="fas fa-trash"></i></div>
+              </div>
         `;
       bookList.appendChild(book);
       removeModal();
     }
   }
-
-  // display the modal by appending it to the document body
-  document.body.insertBefore(modal, document.body.childNodes[0]);
 
   // listen for a click on the modal. if the close modal btn is clicked, remove the modal from the doc body
   modal.addEventListener("click", (e) => {
@@ -66,8 +88,13 @@ function bookModal(e) {
   function removeModal() {
     modal.parentNode.removeChild(modal);
   }
-
-  // submitBtn.addEventListener("click", addBookToDom(e));
-
-  // function addBookToDom(e) {}
 }
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("fa-trash")) {
+    let parent = e.target.parentNode.parentNode.parentNode;
+    booksArr = booksArr.filter((book) => book.id !== parent.id);
+    console.log(booksArr);
+    bookList.removeChild(parent);
+  }
+});
