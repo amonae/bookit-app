@@ -1,5 +1,6 @@
 const addBookBtn = document.querySelector(".add-book-btn");
 const bookList = document.querySelector(".book-list");
+const search = document.querySelector(".search-bar");
 let booksArr = [];
 
 if (localStorage.getItem("books")) {
@@ -105,13 +106,68 @@ function createBook(book, lastBook) {
   book.id = lastBook.id;
   book.innerHTML = `
     <div class="book-cover"></div>
-            <div class="book-container">
-              <div class="book-info">
-                <div class="book-title">${lastBook.title}</div>
-                <div class="book-author">${lastBook.author}</div>
-              </div>
-              <div class="remove-btn"><i class="fas fa-trash"></i></div>
-            </div>
+    <div class="book-container">
+      <div class="book-info">
+        <div class="book-title">${lastBook.title}</div>
+        <div class="book-author">${lastBook.author}</div>
+      </div>
+    <div class="remove-btn"><i class="fas fa-trash"></i></div>
+    </div>
       `;
   bookList.appendChild(book);
 }
+
+// Search bar functionality
+function searchBooks(searchText) {
+  let books = JSON.parse(localStorage.getItem("books"));
+
+  let matches = books.filter((book) => {
+    const regex = new RegExp(`^${searchText}`, "gi");
+    return book.title.match(regex);
+  });
+  if (searchText.length === 0) {
+    matches = [];
+    html = books
+      .map(
+        (book) => `<div class="book-card">
+    <div class="book-cover"></div>
+    <div class="book-container">
+      <div class="book-info">
+        <div class="book-title">${book.title}</div>
+        <div class="book-author">${book.author}</div>
+      </div>
+      <div class="remove-btn"><i class="fas fa-trash"></i></div>
+    </div>
+  </div>`
+      )
+      .join("");
+    bookList.innerHTML = html;
+  }
+
+  outputHtml(matches);
+}
+
+function outputHtml(matches) {
+  if (matches.length > 0) {
+    const html = matches
+      .map(
+        (match) => `
+          <div class="book-card">
+            <div class="book-cover"></div>
+            <div class="book-container">
+              <div class="book-info">
+                <div class="book-title">${match.title}</div>
+                <div class="book-author">${match.author}</div>
+              </div>
+              <div class="remove-btn"><i class="fas fa-trash"></i></div>
+            </div>
+          </div>
+      `
+      )
+      .join("");
+
+    bookList.innerHTML = html;
+  }
+}
+
+search.addEventListener("input", () => searchBooks(search.value));
